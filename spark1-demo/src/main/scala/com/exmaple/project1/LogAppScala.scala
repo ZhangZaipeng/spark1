@@ -1,4 +1,4 @@
-package com.exmaple.p1
+package com.exmaple.project1
 
 import com.exmaple.common.CommSparkContextSca
 import org.apache.spark.SparkContext
