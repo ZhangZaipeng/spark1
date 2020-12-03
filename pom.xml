@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example</groupId>
+  <artifactId>spark1</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>spark1-demo</module>
+    <module>spark1-common</module>
+  </modules>
+
+  <properties>
+    <spark.version>2.4.0</spark.version>
+    <scala.version>2.11</scala.version>
+  </properties>
+
+  <build>
+    <finalName>spark-examples</finalName>
+    <!--<sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.js</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+          <exclude>**/*.scala</exclude>
+          <exclude>**/.svn/</exclude>
+        </excludes>
+        <filtering>false</filtering>
+      </resource>
+
+      <resource>
+        <directory>src/main/resources</directory>
+
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+          <include>**/*.ftl</include>
+        </includes>
+        <excludes>
+          <exclude>**/.svn/</exclude>
+        </excludes>
+        &lt;!&ndash;是否对主资源目录开启资源过滤&ndash;&gt;
+        <filtering>true</filtering>
+      </resource>
+    </resources>-->
+
+    <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <version>2.15.2</version>
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/*.scala</include>
+              </includes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <!-- 用来编译Java代码 -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <!-- plugin 下的 configuration  对插的配置    如果在execution标签中  测试对插件中的某一个小功能的配置-->
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
