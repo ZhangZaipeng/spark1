@@ -30,6 +30,7 @@ public class CoalesceJava {
         }, false);
 
     JavaRDD<String> coalesceValues = mapIndexValues.coalesce(2);
+
     JavaRDD<String> mapIndexValues2 = coalesceValues
         .mapPartitionsWithIndex(new Function2<Integer, Iterator<String>, Iterator<String>>() {
           @Override

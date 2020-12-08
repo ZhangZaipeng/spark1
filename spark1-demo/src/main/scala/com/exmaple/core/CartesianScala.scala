@@ -2,6 +2,9 @@ package com.exmaple.core
 
 import com.exmaple.common.CommSparkContextSca
 
+/**
+ * 计算两个RDD之间的笛卡尔积（即第一个RDD的每个项与第二个RDD的每个项连接）并将它们作为新的RDD返回
+ */
 object CartesianScala {
 
   def main(args: Array[String]): Unit = {
