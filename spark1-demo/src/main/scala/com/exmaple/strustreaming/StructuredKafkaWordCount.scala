@@ -1,9 +1,14 @@
-package com.exmaple.streaming
+package com.exmaple.strustreaming
 
 import java.util.UUID
 
 import org.apache.spark.sql.SparkSession
 
+/**
+ * @Description ：
+ * @Tauthor ZhangZaipeng
+ * @Tdata 2020/12/14   11:30
+ */
 object StructuredKafkaWordCount {
   def main(args: Array[String]): Unit = {
     if (args.length < 3) {
@@ -47,4 +52,3 @@ object StructuredKafkaWordCount {
   }
 
 }
-// scalastyle:on println

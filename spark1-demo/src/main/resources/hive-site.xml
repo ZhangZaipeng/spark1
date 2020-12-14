@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+	<property>
+		<name>javax.jdo.option.ConnectionURL</name>
+		<value>jdbc:mysql://192.172.1.41/metastore?createDatabaseIfNotExist=true</value>
+	</property>
+	
+	<property>
+		<name>javax.jdo.option.ConnectionDriverName</name>
+		<value>com.mysql.jdbc.Driver</value>
+	</property>
+	
+	
+	<property>
+		<name>javax.jdo.option.ConnectionUserName</name>
+		<value>hive</value>
+    </property>
+
+	<property>
+		<name>javax.jdo.option.ConnectionPassword</name>
+		<value>wzlinux</value>
+	</property>
+
+	<property>
+		<name>hive.metastore.local</name>
+		<value>false</value>
+	</property>
+	
+	<property>
+		<name>hive.metastore.uris</name>
+		<value>thrift://192.172.1.45:9083</value>
+	</property>
+	
+	<property>
+		<name>hive.cli.print.header</name>
+		<value>true</value>
+	</property>
+	
+	<property>
+		<name>hive.cli.print.current.db</name>
+		<value>true</value>
+	</property>
+	
+</configuration>

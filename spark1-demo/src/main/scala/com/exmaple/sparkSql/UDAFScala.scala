@@ -14,7 +14,7 @@ object UDAFScala {
 
     spark.read.json(userPath).createOrReplaceTempView("user")
 
-    spark.udf.register("count", new MyCount);
+    spark.udf.register("count", new MyCount)
     spark.sql("select count(deptName),deptName from user group by deptName").show()
   }
 
