@@ -4,6 +4,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+/**
+ * 页面 PV、UV、新用户注册比例、网站板块热度排行
+ */
 public class NewSpark {
 
   public static void main(String[] args) {
@@ -14,14 +17,13 @@ public class NewSpark {
         .enableHiveSupport()
         .getOrCreate();
 
-    String yesterday = Tools.getYesterday();
-    Dataset<Row> pagePV = calculatePagePV(yesterday, spark);
-//        Dataset<Row> pageUV = calculatePageUV(yesterday,spark);
-//        double regis = calculateNewUserRegis(yesterday,spark);
-//        Dataset<Row> sectionSort =  calculateSectionSort(yesterday,spark);
+//    Dataset<Row> pagePV = calculatePagePV("2020-12-13", spark);
+//    Dataset<Row> pageUV = calculatePageUV("2020-12-13", spark);
+//    double regis = calculateNewUserRegis("2020-12-13", spark);
+    Dataset<Row> sectionSort = calculateSectionSort("2020-12-13", spark);
 
-    writeData(pagePV, "stu_pagePV");
-    //writeData(pageUV,"stu_pageUV");
+//    writeData(pagePV, "stu_pagePV");
+//    writeData(pageUV, "stu_pageUV");
 
   }
 
@@ -33,7 +35,7 @@ public class NewSpark {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("select cdate,pageid,pv_count from ");
     stringBuilder.append(" ( ");
-    stringBuilder.append(" select cdate,pageid,count(1) pv_count from hivespark.news_access ");
+    stringBuilder.append(" select cdate,pageid,count(1) pv_count from spark.spark_news ");
     stringBuilder.append(" where action='view' and cdate='" + date + "' group by cdate,pageid ");
     stringBuilder.append(" ) ");
     stringBuilder.append(" t order by pv_count desc ");
@@ -47,9 +49,8 @@ public class NewSpark {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("select cdate,pageid,uv_count from ");
     stringBuilder.append(" ( ");
-    stringBuilder.append(" select cdate,pageid,count(userid) uv_count from hivespark.news_access ");
-    stringBuilder
-        .append(" where action='view' and cdate='" + date + "' group by cdate,pageid,userid ");
+    stringBuilder.append(" select cdate,pageid,count(userid) uv_count from spark.spark_news ");
+    stringBuilder.append(" where action='view' and cdate='" + date + "' group by cdate, pageid, userid ");
     stringBuilder.append(" ) ");
     stringBuilder.append(" t order by uv_count desc ");
     return spark.sql(stringBuilder.toString());
@@ -62,10 +63,10 @@ public class NewSpark {
    */
   private static double calculateNewUserRegis(String date, SparkSession spark) {
 
-    String sql1 = "select count(1) allView from hivespark.news_access " +
+    String sql1 = "select count(1) allView from spark.spark_news " +
         " where action ='view' and cdate = '" + date + "' and userid = 'null'";
 
-    String sql2 = "select count(1) allRegis from hivespark.news_access " +
+    String sql2 = "select count(1) allRegis from spark.spark_news " +
         " where action='register' and cdate = '" + date + "'";
 
     long allView = (long) spark.sql(sql1).collectAsList().get(0).get(0);
@@ -83,7 +84,7 @@ public class NewSpark {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("select cdate,section,se_count from ");
     stringBuilder.append(" ( ");
-    stringBuilder.append(" select cdate,section,count(1) se_count from hivespark.news_access ");
+    stringBuilder.append(" select cdate,section,count(1) se_count from spark.spark_news ");
     stringBuilder.append(" where action='view' and cdate='" + date + "' group by cdate,section ");
     stringBuilder.append(" ) ");
     stringBuilder.append(" t order by se_count desc ");

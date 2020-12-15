@@ -20,6 +20,8 @@ object DirectKafkaWordCount {
       System.exit(1)
     }
 
+    StreamingExamples.setStreamingLogLevels()
+
     val Array(brokers, groupId, topics) = args
 
     // Create context with 2 second batch interval

@@ -9,6 +9,9 @@ import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
+/**
+ * 移动APP 访问流量 TopN排行
+ */
 public class LogApp {
 
   public static void main(String[] args) {
