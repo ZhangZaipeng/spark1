@@ -1,6 +1,6 @@
 package com.exmaple.streaming
 
-import com.exmaple.redis.JedisConnectionPool
+import com.exmaple.common.JedisConnectionPool
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.serialization.StringDeserializer
