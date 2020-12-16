@@ -25,7 +25,7 @@ object HiveSpark {
     // 写数据
     val recordsDF = spark.createDataFrame((1 to 5).map(i => HelloWorld(i, "o", 25,"09-19")))
 
-    recordsDF.write.mode(SaveMode.Append).saveAsTable("default.helloworld")
+    recordsDF.write.format("Hive").mode(SaveMode.Append).saveAsTable("default.helloworld")
 
     spark.sql("select * from default.helloworld").show()
   }

@@ -1,4 +1,4 @@
-package com.exmaple.redis
+package com.exmaple.common
 
 import redis.clients.jedis.{Jedis, JedisPool, JedisPoolConfig}
 
