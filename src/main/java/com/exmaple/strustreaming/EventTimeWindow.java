@@ -24,7 +24,7 @@ public class EventTimeWindow {
     Dataset<Row> df_line = spark
         .readStream()
         .format("socket")
-        .option("host", "bigdata-pro-m01.kfk.com")
+        .option("host", "192.172.1.40")
         .option("port", 9999)
         .option("includeTimestamp", true)
         .load();
@@ -66,6 +66,7 @@ public class EventTimeWindow {
         .format("console")
         .option("truncate", "false")
         .start();
+
     query.awaitTermination();
 
   }

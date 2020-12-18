@@ -10,6 +10,10 @@ import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import scala.Tuple2;
 
+/**
+ * sparkStreaming Windows 函数
+ * https://www.cnblogs.com/lshan/p/13346546.html
+ */
 public class WindowHotWordJava {
 
   public static void main(String[] args) throws Exception {

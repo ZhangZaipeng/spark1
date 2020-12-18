@@ -49,7 +49,6 @@ public class ForeachPersistMySQL {
         stm.executeUpdate(sql);
       }
       ConnectionPool.returnConnection(conn);
-
     }));
 
     jssc.start();

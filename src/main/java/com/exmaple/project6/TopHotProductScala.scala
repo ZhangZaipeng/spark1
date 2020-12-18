@@ -1,6 +1,6 @@
 package com.exmaple.project6
 
-import com.exmaple.common.CommSparkContextSca
+import com.exmaple.common.{CommSparkContextSca, CommSparkSessionScala}
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.streaming.Seconds
@@ -15,8 +15,8 @@ object TopHotProductScala {
     val windowDStream = pairDStream.reduceByKeyAndWindow((x: Int, y: Int) => (x + y), Seconds(60), Seconds(10))
 
     windowDStream.foreachRDD(x => {
-      val rowRDD = x.map(tuple => {
 
+      val rowRDD = x.map(tuple => {
         val category = tuple._1.split("_")(0)
         val product = tuple._1.split("_")(1)
         val count = tuple._2
@@ -38,7 +38,6 @@ object TopHotProductScala {
       spark.sql("" + "select category,product,product_count,rank from"
         + " (select category,product,product_count,row_number() OVER (PARTITION BY category,product order by product_count desc) rank "
         + " from product_click ) tempUser where rank <=3" + "").show()
-
     })
 
 

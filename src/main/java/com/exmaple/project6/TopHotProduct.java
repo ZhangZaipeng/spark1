@@ -47,7 +47,7 @@ public class TopHotProduct {
     JavaStreamingContext jssc = CommSparkContext.getJssc();
 
     JavaReceiverInputDStream<String> inputDStream =
-        jssc.socketTextStream("bigdata-pro-m01.kfk.com", 9999);
+        jssc.socketTextStream("192.172.1.40", 9999);
 
     JavaPairDStream<String, Integer> pairDStream = inputDStream.mapToPair(x -> {
       String[] lines = x.split(" ");
@@ -56,10 +56,11 @@ public class TopHotProduct {
 
     JavaPairDStream<String, Integer> windowPairStream =
         pairDStream.reduceByKeyAndWindow((x, y) -> x + y,
-            Durations.seconds(60), Durations.seconds(10));
+            Durations.seconds(30), Durations.seconds(10));
 
     windowPairStream.foreachRDD(x -> {
-      JavaRDD countRowRDD = x.map(tuple -> {
+
+      JavaRDD<Row> countRowRDD = x.map(tuple -> {
         String category = tuple._1.split("_")[0];
         String product = tuple._1.split("_")[1];
         Integer count = tuple._2;
@@ -77,18 +78,18 @@ public class TopHotProduct {
 
       Dataset<Row> df = sparkSession.createDataFrame(countRowRDD, structType);
 
+      df.show();
+
       df.createOrReplaceTempView("product_click");
 
       /**
        * 统计每个种类下点击次数排名前3的商品
        */
-
       sparkSession.sql("" +
           "select category,product,product_count,rank from" +
-          " (select category,product,product_count,row_number() OVER (PARTITION BY category,product order by product_count desc) rank "
-          +
-          " from product_click ) tempUser where rank <=3" +
-          "").show();
+          " ("
+          + "select category,product,product_count,row_number() OVER (PARTITION BY category,product order by product_count desc"
+          + ") rank from product_click ) tempUser where rank <=3").show();
     });
 
     jssc.start();

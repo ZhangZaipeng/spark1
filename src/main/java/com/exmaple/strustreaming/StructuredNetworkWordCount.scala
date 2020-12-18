@@ -18,16 +18,13 @@ import org.apache.spark.sql.streaming.Trigger
  */
 object StructuredNetworkWordCount {
   def main(args: Array[String]) {
-    if (args.length < 2) {
-      System.err.println("Usage: StructuredNetworkWordCount <hostname> <port>")
-      System.exit(1)
-    }
 
-    val host = args(0)
-    val port = args(1).toInt
+    val host = "192.172.1.40"
+    val port = 9999
 
     val spark = SparkSession
       .builder
+      .master("local")
       .appName("StructuredNetworkWordCount")
       .getOrCreate()
 

@@ -22,7 +22,7 @@ public class EventTimeWindow2 {
     Dataset<String> df_line = spark
         .readStream()
         .format("socket")
-        .option("host", "bigdata-pro-m01.kfk.com")
+        .option("host", "192.172.1.40")
         .option("port", 9999)
         .load().as(Encoders.STRING());
 
@@ -42,6 +42,7 @@ public class EventTimeWindow2 {
         .outputMode("update")
         .format("console")
         .option("truncate", "false")
+        .option("checkpointLocation", "hdfs://hadoop1:8020/spark/checkpoint/event_time2")
         .start();
     query.awaitTermination();
 
