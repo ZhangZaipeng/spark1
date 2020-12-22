@@ -53,6 +53,7 @@ public class StruStreamingDFOper3 {
           .create(lines[0], lines[1], Double.valueOf(lines[2]), Date.valueOf(lines[3]));
 
     }, RowEncoder.apply(scheme));
+
     Dataset<DeviceData> df_device = df_row.as(ExpressionEncoder.javaBean(DeviceData.class));
     df_device.createOrReplaceTempView("device");
     Dataset<Row> df_final = spark.sql("select * from device");

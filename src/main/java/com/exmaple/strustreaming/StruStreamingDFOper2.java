@@ -64,6 +64,7 @@ public class StruStreamingDFOper2 {
         .outputMode("update")
         .format("console")
         .start();
+
     query.awaitTermination();
 
   }

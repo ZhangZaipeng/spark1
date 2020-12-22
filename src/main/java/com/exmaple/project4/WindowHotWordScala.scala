@@ -3,6 +3,14 @@ package com.exmaple.project4
 import com.exmaple.common.CommSparkContextSca
 import org.apache.spark.streaming.Seconds
 
+/**
+ * window operations：滑动窗口操作
+ * window() 基于窗口得到原始的 DStream
+ * countByWindow() 滑动窗口数据量中的元素个数
+ * reduceByWindow()
+ * reduceByKeyAndWindow()
+ * countByValueAndWindow()
+ */
 object WindowHotWordScala {
 
 

@@ -8,6 +8,9 @@ import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQuery;
+import org.apache.spark.sql.streaming.Trigger;
+import org.apache.spark.streaming.Duration;
+import org.apache.spark.streaming.Durations;
 
 public class WordCountJava {
     /**
@@ -42,6 +45,7 @@ public class WordCountJava {
 
     StreamingQuery query = wordCount.writeStream()
         .outputMode("complete")
+        .trigger(Trigger.ProcessingTime(5000))
         .format("console")
         .start();
 

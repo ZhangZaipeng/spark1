@@ -26,7 +26,6 @@ public class StruStreamingDFOper {
     Dataset<DeviceData> df_device = df_line.map((MapFunction<String, DeviceData>) x -> {
       String[] lines = x.split(",");
       return new DeviceData(lines[0], lines[1], Double.valueOf(lines[2]), Date.valueOf(lines[3]));
-
     }, ExpressionEncoder.javaBean(DeviceData.class));
 
     Dataset<Row> df_final = df_device
@@ -39,8 +38,7 @@ public class StruStreamingDFOper {
         .outputMode("update")
         .format("console")
         .start();
+
     query.awaitTermination();
-
-
   }
 }
